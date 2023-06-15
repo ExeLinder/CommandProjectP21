@@ -6,6 +6,11 @@ using namespace std;
 
 char theme[20];
 
+void FinalResult()
+{
+	cout << "Результат" << endl;
+}
+
 void ShowQestion()
 {
 	FILE* fp;
@@ -13,6 +18,8 @@ void ShowQestion()
 	char answerFromFile;
 	char answerFromUser;
 	int cnt = 0;
+
+
 	int var1 = _chdir("Questions");
 
 	fopen_s(&fp, theme, "r");
@@ -72,8 +79,6 @@ void Select_Theme()
 
 	cin >> theme;
 	
-	ShowQestion();
-
 }
 
 void Viktorina()
@@ -86,6 +91,10 @@ void Viktorina()
 	cout << "Viktorina" << endl;
 
 	Select_Theme();
+
+	ShowQestion();
+
+	FinalResult();
 }
 
 
