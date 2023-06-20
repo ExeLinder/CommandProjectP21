@@ -5,21 +5,34 @@
 using namespace std;
 
 char theme[20];
+char answerFromFile[25];
+char answerFromUser[25];
+int cnt = 0;
 
 void FinalResult()
 {
-	cout << "Результат" << endl;
+	cout << "Результат - " << cnt << " - вопросов:" << endl;
+
+	cout << endl;
+
+	for (size_t i = 0; i < cnt; i++)
+	{
+		cout << answerFromFile[i]<< " ";
+	}
+
+	cout << endl;
+
+	for (size_t i = 0; i < cnt; i++)
+	{
+		cout << answerFromUser[i] << " ";
+	}
+	cout << endl;
 }
 
 void ShowQestion()
 {
 	FILE* fp;
 	char str[100];
-	char answerFromFile;
-	char answerFromUser;
-	int cnt = 0;
-
-
 	int var1 = _chdir("Questions");
 
 	fopen_s(&fp, theme, "r");
@@ -34,10 +47,10 @@ void ShowQestion()
 			{
 				fgets(str, 100, fp);
 
-				if (i==5)
+				if (i == 5)
 				{
-					answerFromFile = str[0];
-					
+					answerFromFile[cnt] = str[0];
+
 				}
 				else
 				{
@@ -45,13 +58,13 @@ void ShowQestion()
 				}
 			}
 
-			cnt++;
-
 			cout << "Введите ответ - ";
 
-			cin >> answerFromUser;
+			cin >> answerFromUser[cnt];
 
-		} while (cnt<5);
+			cnt++;
+
+		} while (str[1] != '#');
 
 		fclose(fp);
 	}
@@ -75,17 +88,14 @@ void Select_Theme()
 
 	cout << endl;
 
-	cout << "Выберите тему" << endl;
+	cout << "Выберите тему - ";
 
 	cin >> theme;
-	
+
 }
 
 void Viktorina()
 {
-	//SetConsoleCP(1251);
-	//SetConsoleOutputCP(1251);
-
 	setlocale(LC_ALL, "ru");
 
 	cout << "Viktorina" << endl;
