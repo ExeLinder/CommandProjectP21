@@ -7,8 +7,43 @@ using namespace std;
 char theme[20];
 char answerFromFile[25];
 char answerFromUser[25];
+
+char** dataTheme;
+int row = 0;
 int cnt = 0;
 
+void loadFile()
+{
+	dataTheme = new char* [100];
+
+	for (size_t i = 0; i < 100; i++)
+	{
+		dataTheme[i] = new char[100];
+	}
+
+	FILE* fp;
+	int var1 = _chdir("Questions");
+
+	fopen_s(&fp, theme, "r");
+
+	if (fp != NULL)
+	{
+		while (row < 100)
+		{
+			fgets(dataTheme[row], 100, fp);
+
+			//cout << dataTheme[row];
+
+			if ((dataTheme[row])[0] == '#')
+			{
+				break;
+			}
+
+			row++;
+		}
+		fclose(fp);
+	}
+}
 void FinalResult()
 {
 	cout << "Результат - " << cnt << " - вопросов:" << endl;
@@ -17,7 +52,7 @@ void FinalResult()
 
 	for (size_t i = 0; i < cnt; i++)
 	{
-		cout << answerFromFile[i]<< " ";
+		cout << answerFromFile[i] << " ";
 	}
 
 	cout << endl;
@@ -92,6 +127,7 @@ void Select_Theme()
 
 	cin >> theme;
 
+	loadFile();
 }
 
 void Viktorina()
@@ -102,13 +138,25 @@ void Viktorina()
 
 	Select_Theme();
 
-	ShowQestion();
+	//ShowQestion();
 
-	FinalResult();
+	//FinalResult();
+
+
+
+	for (size_t i = 0; i < 100; i++)
+	{
+		delete[] dataTheme[i];
+	}
+
+	delete[] dataTheme;
 }
 
 
 int main()
 {
 	Viktorina();
+
+
+
 }
