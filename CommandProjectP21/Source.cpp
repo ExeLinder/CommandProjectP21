@@ -10,7 +10,7 @@ char answerFromUser[25];
 
 char** dataTheme;
 int row = 0;
-int cnt = 0;
+int questionCnt = 0;
 
 void loadFile()
 {
@@ -32,8 +32,6 @@ void loadFile()
 		{
 			fgets(dataTheme[row], 100, fp);
 
-			//cout << dataTheme[row];
-
 			if ((dataTheme[row])[0] == '#')
 			{
 				break;
@@ -46,18 +44,18 @@ void loadFile()
 }
 void FinalResult()
 {
-	cout << "–езультат - " << cnt << " - вопросов:" << endl;
+	cout << "–езультат - " << questionCnt << " - вопросов:" << endl;
 
 	cout << endl;
 
-	for (size_t i = 0; i < cnt; i++)
+	for (size_t i = 0; i < questionCnt; i++)
 	{
 		cout << answerFromFile[i] << " ";
 	}
 
 	cout << endl;
 
-	for (size_t i = 0; i < cnt; i++)
+	for (size_t i = 0; i < questionCnt; i++)
 	{
 		cout << answerFromUser[i] << " ";
 	}
@@ -66,42 +64,31 @@ void FinalResult()
 
 void ShowQestion()
 {
-	FILE* fp;
-	char str[100];
-	int var1 = _chdir("Questions");
-
-	fopen_s(&fp, theme, "r");
-
-	if (fp != NULL)
+	for (size_t i = 0; i < row; i++)
 	{
-		do
+		system("cls");
+
+		for (size_t j = 0; j < 6; j++)
 		{
-			system("cls");
-
-			for (size_t i = 0; i < 6; i++)
+			if (j == 5)
 			{
-				fgets(str, 100, fp);
+				answerFromFile[questionCnt] = (dataTheme[i+j])[0];
 
-				if (i == 5)
-				{
-					answerFromFile[cnt] = str[0];
-
-				}
-				else
-				{
-					cout << str;
-				}
 			}
+			else
+			{
+				cout << dataTheme[i+j];
+			}
+		}
 
-			cout << "¬ведите ответ - ";
+		i += 5;
 
-			cin >> answerFromUser[cnt];
+		cout << "¬ведите ответ - ";
 
-			cnt++;
+		cin >> answerFromUser[questionCnt];
 
-		} while (str[1] != '#');
+		questionCnt++;
 
-		fclose(fp);
 	}
 }
 
@@ -138,11 +125,9 @@ void Viktorina()
 
 	Select_Theme();
 
-	//ShowQestion();
+	ShowQestion();
 
 	//FinalResult();
-
-
 
 	for (size_t i = 0; i < 100; i++)
 	{
