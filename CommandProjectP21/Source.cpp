@@ -5,22 +5,13 @@
 using namespace std;
 
 char theme[20];
-//char answerFromFile[25];
-//char answerFromUser[25];
+
+char answerFromUser[25][50];
 
 char** dataTheme;
 int row = 0;
 int questionCnt = 0;
 
-
-struct QuestionResult
-{
-	char question[50];
-	char answerFromUser[50];
-	char trueAnswer[50];
-};
-
-QuestionResult questionResults[25];
 
 void loadFile()
 {
@@ -54,31 +45,29 @@ void loadFile()
 }
 void FinalResult()
 {
-	/*cout << "Результат - " << questionCnt << " - вопросов:" << endl;
-
-	cout << endl;
-
-	for (size_t i = 0; i < questionCnt; i++)
-	{
-		cout << answerFromFile[i] << " ";
-	}
-
-	cout << endl;
-
-	for (size_t i = 0; i < questionCnt; i++)
-	{
-		cout << answerFromUser[i] << " ";
-	}
-	cout << endl;*/
-
+	int cnt = 0;
 	system("cls");
 
-	for (size_t i = 0; i < 5; i++)
+	for (size_t i = 0; i < row; i++)
 	{
-		cout << "Вопрос " << questionResults[i].question;
-		cout << "Правильный ответ "<< questionResults[i].trueAnswer;
-		cout << "Ответ пользователя " << questionResults[i].answerFromUser << endl;
+		for (size_t j = 0; j < 6; j++)
+		{
+			if (j==0||j==5)
+			{
+				cout << dataTheme[i + j];
+			}
+		}
+
+		cout << answerFromUser[cnt++];
+
+		i += 5;
+	
 	}
+
+		/*cout << "Вопрос " << questionResults[i].question;
+		cout << "Правильный ответ "<< questionResults[i].trueAnswer;
+		cout << "Ответ пользователя " << questionResults[i].answerFromUser << endl;*/
+	
 }
 
 void ShowQestion()
@@ -89,22 +78,11 @@ void ShowQestion()
 
 		for (size_t j = 0; j < 6; j++)
 		{
-			if (j == 0)
-			{
-				strcpy_s(questionResults[questionCnt].question, 50, (dataTheme[i]));
-			}
-
-			if (j == 5)
-			{
-				strcpy_s(questionResults[questionCnt].trueAnswer, 50, (dataTheme[i + (dataTheme[i+j][0] - 96)]));
-			}
-			else
+			if(i!=5)
 			{
 				cout << dataTheme[i + j];
 			}
-		}
-
-		
+		}	
 
 		cout << "Введите ответ - ";
 
@@ -112,7 +90,7 @@ void ShowQestion()
 		
 		cin >> choice;
 
-		strcpy_s(questionResults[questionCnt].answerFromUser, 50, (dataTheme[i + (choice - 96)]));
+		strcpy_s(answerFromUser[questionCnt], 50, (dataTheme[i + (choice - 96)]));
 
 		questionCnt++;
 
